@@ -1,4 +1,10 @@
 .coverpage {
+  background-color: rgba(228, 216, 202, 0.7);
+}
+.coverpage__content {
+  font-family: "Lora", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
+  font-weight: 400;
   max-width: 1440px;
   margin: 0 auto;
   text-align: center;
@@ -9,10 +15,32 @@
   align-items: center;
 }
 
+.coverpage__title {
+  font-weight: 600;
+}
+
 .coverpage__accent-text {
-  color: aqua;
+  color: rgb(0, 115, 255);
+  font-weight: 700;
+}
+
+.coverpage__text {
+  font-weight: 500;
 }
 
 .coverpage__button {
+  font-size: 22px;
+  background-color: rgba(0, 115, 255, 0.8);
+  border-radius: 35px;
   width: fit-content;
+  font-weight: 700;
+  color: #fff;
+  border: none;
+  padding: 20px;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.coverpage__button:hover {
+  opacity: 0.8;
 }
