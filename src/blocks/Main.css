@@ -2,11 +2,16 @@
   position: relative;
 }
 
+.main__input {
+  font-family: "Lora", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
+}
+
 .main__dropdown-container {
   position: absolute;
   visibility: hidden;
   transition: visibility 0.29s;
-  top: calc(100%);
+  top: calc(100% + 0px);
   left: 15px;
   max-width: 60vw;
 }
@@ -19,7 +24,7 @@
 .main__dropdown-container::before {
   content: "";
   position: absolute;
-  top: 6px;
+  top: 7px;
   left: 29px;
   border-width: 5px;
   border-style: solid;
@@ -53,6 +58,8 @@
   max-height: 0px;
   transition: max-height 0.3s ease-out, padding 0.3s ease-out;
   overflow: hidden;
+  box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.25);
+  margin-bottom: 0;
 }
 
 .main__dropdown_opened {

@@ -1,25 +1,37 @@
 import "../blocks/Main.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
+//http://api.geonames.org/searchJSON?q=${query}&maxRows=5&country=US&username=${import.meta.env.VITE_GEONAMES_USERNAME}
+//http://api.geonames.org/postalCodeSearchJSON?postalcode=${query}&maxRows=1&country=US&username=${import.meta.env.VITE_GEONAMES_USERNAME}
+
 interface Location {
   name: string;
   geonameId: number;
 }
 
 export default function Main() {
+  /* -------------------------------------------------------------------------- */
+  /*                            states and constants                            */
+  /* -------------------------------------------------------------------------- */
   const [query, setQuery] = useState("");
   const [keyPressCount, setKeyPressCount] = useState(0);
   const [similarLocations, setSimilarLocations] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  //http://api.geonames.org/searchJSON?q=${query}&maxRows=5&country=US&username=${import.meta.env.VITE_GEONAMES_USERNAME}
+  const ulStyle: React.CSSProperties | undefined = {
+    maxHeight: `calc(30px + ${similarLocations.length * 25}px)`,
+  };
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  functions                                 */
+  /* -------------------------------------------------------------------------- */
 
   function handleQueryChange(e: ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
     setKeyPressCount((prev) => prev + 1);
   }
 
-  function getSimilarLocations() {
+  function getLocationsByName() {
     return fetch(
       `http://api.geonames.org/searchJSON?q=${query}&maxRows=5&country=US&username=${
         import.meta.env.VITE_GEONAMES_USERNAME
@@ -32,25 +44,57 @@ export default function Main() {
     });
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    return getSimilarLocations()
-      .then((data) => {
-        console.log(data);
-        console.log(data.geonames[0]);
-      })
-      .catch((err) => {
-        console.error(err);
-        alert(`${err} Could not find similar locations!`);
-      });
+  function isValidZipcode(str: string) {
+    return /^[0-9]{5}$/.test(str);
   }
 
-  console.log(similarLocations);
+  function getLocationByZipcode() {
+    return fetch(
+      `http://api.geonames.org/postalCodeSearchJSON?postalcode=${query}&maxRows=1&country=US&username=${
+        import.meta.env.VITE_GEONAMES_USERNAME
+      }`
+    ).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    });
+  }
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (!isValidZipcode(query)) {
+      return getLocationsByName()
+        .then((data) => {
+          console.log(data);
+          console.log(data.geonames[0]);
+        })
+        .catch((err) => {
+          console.error(err);
+          alert(`${err} Could not find locations!`);
+        });
+    } else {
+      return getLocationByZipcode()
+        .then((data) => {
+          console.log(data);
+          console.log(data.postalCodes[0].placeName);
+        })
+        .catch((err) => {
+          console.error(err);
+          alert(`${err} Could not find location!`);
+        });
+    }
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 useEffects                                 */
+  /* -------------------------------------------------------------------------- */
 
   useEffect(() => {
     if (query.length >= 3 && keyPressCount >= 5) {
       //make the fetch
-      getSimilarLocations()
+      getLocationsByName()
         .then((data) => {
           setSimilarLocations(data.geonames);
           //reset keyPressCount to 0
@@ -62,10 +106,6 @@ export default function Main() {
         });
     }
   }, [query]);
-
-  const ulStyle: React.CSSProperties | undefined = {
-    maxHeight: `calc(30px + ${similarLocations.length * 25}px)`,
-  };
 
   return (
     <main className="main">
