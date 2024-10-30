@@ -9,4 +9,7 @@ body {
   justify-content: space-between;
   max-width: 1440px;
   margin: 0 auto;
+  font-family: "Lora", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
+  align-items: center;
 }

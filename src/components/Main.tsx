@@ -1,3 +1,4 @@
+import "../blocks/Main.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 interface Location {
@@ -7,14 +8,15 @@ interface Location {
 
 export default function Main() {
   const [query, setQuery] = useState("");
-  const [characterCount, setCharacterCount] = useState(0);
+  const [keyPressCount, setKeyPressCount] = useState(0);
   const [similarLocations, setSimilarLocations] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   //http://api.geonames.org/searchJSON?q=${query}&maxRows=5&country=US&username=${import.meta.env.VITE_GEONAMES_USERNAME}
 
   function handleQueryChange(e: ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
-    setCharacterCount((prev) => prev + 1);
+    setKeyPressCount((prev) => prev + 1);
   }
 
   function getSimilarLocations() {
@@ -43,21 +45,27 @@ export default function Main() {
       });
   }
 
+  console.log(similarLocations);
+
   useEffect(() => {
-    if (characterCount === 5) {
+    if (query.length >= 3 && keyPressCount >= 5) {
       //make the fetch
       getSimilarLocations()
         .then((data) => {
           setSimilarLocations(data.geonames);
-          //reset characterCount to 0
-          setCharacterCount(0);
+          //reset keyPressCount to 0
+          setKeyPressCount(0);
         })
         .catch((err) => {
           console.error(err);
           alert(`${err} Could not find similar locations!`);
         });
     }
-  }, [characterCount]);
+  }, [query]);
+
+  const ulStyle: React.CSSProperties | undefined = {
+    maxHeight: `calc(30px + ${similarLocations.length * 25}px)`,
+  };
 
   return (
     <main className="main">
@@ -68,14 +76,42 @@ export default function Main() {
           onChange={handleQueryChange}
           value={query}
           list="location-options"
+          onFocus={() => setShowDropdown(true)}
+          onBlur={() => setShowDropdown(false)}
         />
-        <datalist id="location-options">
-          {similarLocations.map((location: Location) => {
-            return (
-              <option key={location.geonameId} value={location.name}></option>
-            );
-          })}
-        </datalist>
+
+        <div
+          className={`main__dropdown-container ${
+            showDropdown &&
+            similarLocations.length > 0 &&
+            "main__dropdown-container_opened"
+          }`}
+        >
+          <ul
+            className={`main__dropdown ${
+              showDropdown &&
+              similarLocations.length > 0 &&
+              "main__dropdown_opened"
+            }`}
+            style={
+              showDropdown && similarLocations.length > 0 ? ulStyle : undefined
+            }
+          >
+            {similarLocations.map((location: Location) => (
+              <li
+                key={location.geonameId}
+                onMouseDown={() => {
+                  setQuery(location.name);
+                  setShowDropdown(false);
+                }}
+                className="main__dropdown-item"
+              >
+                {location.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <button type="submit" className="main__submit-button">
           Search
         </button>

@@ -1,0 +1,77 @@
+.main__form {
+  position: relative;
+}
+
+.main__dropdown-container {
+  position: absolute;
+  visibility: hidden;
+  transition: visibility 0.29s;
+  top: calc(100%);
+  left: 15px;
+  max-width: 60vw;
+}
+
+.main__dropdown-container_opened {
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+.main__dropdown-container::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 29px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #ccc transparent;
+  width: 0;
+  height: 0;
+  z-index: 10;
+}
+
+.main__dropdown-container::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 29px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+  width: 0;
+  height: 0;
+  z-index: 11;
+}
+
+.main__dropdown {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0;
+  list-style-type: none;
+  /* width: 100%; */
+  border-radius: 17px;
+  pointer-events: none;
+  /* opacity: 0; */
+  max-height: 0px;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+  overflow: hidden;
+}
+
+.main__dropdown_opened {
+  pointer-events: all;
+  /* opacity: 1; */
+  /* max-height: 150px; */
+  padding: 15px;
+}
+
+.main__dropdown-item {
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 1px 12px;
+  color: rgb(135, 135, 135);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.main__dropdown-item:hover {
+  background-color: gainsboro;
+}
