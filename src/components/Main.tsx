@@ -8,6 +8,10 @@ interface Location {
   name: string;
   geonameId: number;
 }
+interface Coordinate {
+  longitude: string;
+  latitude: string;
+}
 
 export default function Main() {
   /* -------------------------------------------------------------------------- */
@@ -61,18 +65,41 @@ export default function Main() {
     });
   }
 
+  function getPets({ longitude, latitude }: Coordinate) {
+    return fetch(
+      `http://localhost:3001/pets/near?lng=${longitude}&lat=${latitude}`
+    ).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    });
+  }
+
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!query) {
+      return;
+    }
 
     if (!isValidZipcode(query)) {
       return getLocationsByName()
         .then((data) => {
           console.log(data);
           console.log(data.geonames[0]);
+          console.log(typeof data.geonames[0].lat);
+          return getPets({
+            longitude: data.geonames[0].lng,
+            latitude: data.geonames[0].lat,
+          });
+        })
+        .then((pets) => {
+          console.log(pets);
         })
         .catch((err) => {
           console.error(err);
-          alert(`${err} Could not find locations!`);
+          //alert(`${err} Could not find locations!`);
         });
     } else {
       return getLocationByZipcode()
