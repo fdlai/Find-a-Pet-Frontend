@@ -13,3 +13,7 @@ body {
     Arial, sans-serif;
   align-items: center;
 }
+
+.page__content {
+  width: 100%;
+}

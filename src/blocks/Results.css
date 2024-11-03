@@ -1,0 +1,11 @@
+.results {
+  padding-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  gap: 10px;
+  justify-content: center;
+}
+
+.petCard {
+  border: 1px solid black;
+}
