@@ -1,5 +1,8 @@
 .results {
   padding-top: 60px;
+}
+
+.results__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 300px);
   gap: 10px;
@@ -8,4 +11,10 @@
 
 .petCard {
   border: 1px solid black;
+}
+
+.petCard__image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
