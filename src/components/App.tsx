@@ -11,7 +11,7 @@ function App() {
     <Routes>
       <Route path="/" element={<CoverPage />} />
       <Route
-        path="pets/*"
+        path="/pets/*"
         element={
           <div className="page">
             <div className="page__content">
