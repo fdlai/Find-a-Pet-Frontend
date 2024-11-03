@@ -1,8 +1,7 @@
 import "../blocks/CoverPage.css";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function CoverPage() {
-  const navigate = useNavigate();
   return (
     <div className="coverpage">
       <div className="coverpage__content">
@@ -10,13 +9,11 @@ export default function CoverPage() {
           Welcome to <span className="coverpage__accent-text">Find a Pet!</span>
         </h1>
         <h2 className="coverpage__text">Begin your search for a pet here</h2>
-        <button
-          className="coverpage__button"
-          type="button"
-          onClick={() => navigate("/main")}
-        >
-          Let's go!
-        </button>
+        <Link to="/pets">
+          <button className="coverpage__button" type="button">
+            Let's go!
+          </button>
+        </Link>
       </div>
     </div>
   );

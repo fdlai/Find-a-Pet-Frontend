@@ -1,5 +1,7 @@
 import "../blocks/Main.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { getLocationsByName } from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 //http://api.geonames.org/searchJSON?q=${query}&maxRows=5&country=US&username=${import.meta.env.VITE_GEONAMES_USERNAME}
 //http://api.geonames.org/postalCodeSearchJSON?postalcode=${query}&maxRows=1&country=US&username=${import.meta.env.VITE_GEONAMES_USERNAME}
@@ -7,10 +9,6 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 interface Location {
   name: string;
   geonameId: number;
-}
-interface Coordinate {
-  longitude: string;
-  latitude: string;
 }
 
 export default function Main() {
@@ -26,6 +24,8 @@ export default function Main() {
     maxHeight: `calc(30px + ${similarLocations.length * 25}px)`,
   };
 
+  const navigate = useNavigate();
+
   /* -------------------------------------------------------------------------- */
   /*                                  functions                                 */
   /* -------------------------------------------------------------------------- */
@@ -35,83 +35,12 @@ export default function Main() {
     setKeyPressCount((prev) => prev + 1);
   }
 
-  function getLocationsByName() {
-    return fetch(
-      `http://api.geonames.org/searchJSON?q=${query}&maxRows=5&country=US&username=${
-        import.meta.env.VITE_GEONAMES_USERNAME
-      }`
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    });
-  }
-
-  function isValidZipcode(str: string) {
-    return /^[0-9]{5}$/.test(str);
-  }
-
-  function getLocationByZipcode() {
-    return fetch(
-      `http://api.geonames.org/postalCodeSearchJSON?postalcode=${query}&maxRows=1&country=US&username=${
-        import.meta.env.VITE_GEONAMES_USERNAME
-      }`
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    });
-  }
-
-  function getPets({ longitude, latitude }: Coordinate) {
-    return fetch(
-      `http://localhost:3001/pets/near?lng=${longitude}&lat=${latitude}`
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    });
-  }
-
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     if (!query) {
       return;
     }
-
-    if (!isValidZipcode(query)) {
-      return getLocationsByName()
-        .then((data) => {
-          console.log(data);
-          console.log(data.geonames[0]);
-          console.log(typeof data.geonames[0].lat);
-          return getPets({
-            longitude: data.geonames[0].lng,
-            latitude: data.geonames[0].lat,
-          });
-        })
-        .then((pets) => {
-          console.log(pets);
-        })
-        .catch((err) => {
-          console.error(err);
-          //alert(`${err} Could not find locations!`);
-        });
-    } else {
-      return getLocationByZipcode()
-        .then((data) => {
-          console.log(data);
-          console.log(data.postalCodes[0].placeName);
-        })
-        .catch((err) => {
-          console.error(err);
-          alert(`${err} Could not find location!`);
-        });
-    }
+    navigate(`/pets/search/${query}`);
   }
 
   /* -------------------------------------------------------------------------- */
@@ -121,7 +50,7 @@ export default function Main() {
   useEffect(() => {
     if (query.length >= 3 && keyPressCount >= 5) {
       //make the fetch
-      getLocationsByName()
+      getLocationsByName(query)
         .then((data) => {
           setSimilarLocations(data.geonames);
           //reset keyPressCount to 0
