@@ -1,10 +1,17 @@
 .coverpage {
   background-color: rgba(228, 216, 202, 0.7);
+  background-image: url("/src/assets/cover-page-background-park.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: 70%;
 }
 .coverpage__content {
   font-family: "Lora", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
     Arial, sans-serif;
   font-weight: 400;
+  font-size: larger;
+  color: white;
   max-width: 1440px;
   margin: 0 auto;
   text-align: center;
@@ -13,6 +20,11 @@
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+  padding-top: 0%;
+  padding-right: 30%;
+  padding-left: 5%;
+  text-shadow: 2px 2px 3px black;
+  box-sizing: border-box;
 }
 
 .coverpage__title {

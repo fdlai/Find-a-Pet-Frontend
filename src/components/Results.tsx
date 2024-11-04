@@ -13,16 +13,18 @@ interface Pet {
   city: string;
   _id: string;
   imageUrl: string;
+  state: string;
 }
 
 export default function Results() {
   const [pets, setPets] = useState([]);
-  const [noPetsFound, setNoPetsFound] = useState(false);
+  const [noPetsFound, setNoPetsFound] = useState(true);
   const [currentLocation, setCurrentLocation] = useState({ name: "" });
   const [isLoading, setIsLoading] = useState(true);
   const { query } = useParams();
   console.log(query);
 
+  console.log(noPetsFound);
   useEffect(() => {
     if (!query) {
       return;
@@ -75,15 +77,15 @@ export default function Results() {
         <h2>
           {noPetsFound
             ? "No pets found"
-            : `Closest pets to ${currentLocation.name}:`}
+            : `Nearest pets to ${currentLocation.name}:`}
         </h2>
       )}
       <div className="results__grid">
         {pets.map((pet: Pet) => {
           return (
             <div key={pet._id} className="petCard">
-              <h3>{pet.name}</h3>
-              <p>{pet.city}</p>
+              <h3 className="petCard__name">{pet.name}</h3>
+              <p>{`${pet.city}, ${pet.state}`}</p>
               <img className="petCard__image" src={pet.imageUrl} alt="" />
             </div>
           );
