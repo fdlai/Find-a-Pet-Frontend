@@ -4,9 +4,10 @@ import { useParams } from "react-router-dom";
 import {
   getLocationsByName,
   getLocationByZipcode,
-  getPets,
+  getNearestPets,
 } from "../utils/api";
 import { isValidZipcode } from "../utils/helpers";
+import PetCard from "./PetCard";
 
 interface Pet {
   name: string;
@@ -30,46 +31,34 @@ export default function Results() {
       return;
     }
 
-    if (!isValidZipcode(query)) {
-      getLocationsByName(query)
-        .then((data) => {
-          console.log(data);
-          console.log(data.geonames[0]);
-          if (data.geonames.length === 0) {
-            setPets([]);
-            setNoPetsFound(true);
-            throw new Error("Could not find any pets at this location");
-          }
-          console.log(typeof data.geonames[0].lat);
-          setCurrentLocation(data.geonames[0]);
-          return getPets({
-            longitude: data.geonames[0].lng,
-            latitude: data.geonames[0].lat,
-          });
-        })
-        .then((petsArray) => {
-          console.log(petsArray);
-          setPets(petsArray);
-          setNoPetsFound(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          //alert(`${err} Could not find locations!`);
-        })
-        .finally(() => {
-          setIsLoading(false);
+    getLocationsByName(query)
+      .then((data) => {
+        console.log(data);
+        console.log(data.geonames[0]);
+        if (data.geonames.length === 0) {
+          setPets([]);
+          setNoPetsFound(true);
+          throw new Error("Could not find any pets at this location");
+        }
+        console.log(typeof data.geonames[0].lat);
+        setCurrentLocation(data.geonames[0]);
+        return getNearestPets({
+          longitude: data.geonames[0].lng,
+          latitude: data.geonames[0].lat,
         });
-    } else {
-      getLocationByZipcode(query)
-        .then((data) => {
-          console.log(data);
-          console.log(data.postalCodes[0].placeName);
-        })
-        .catch((err) => {
-          console.error(err);
-          alert(`${err} Could not find location!`);
-        });
-    }
+      })
+      .then((petsArray) => {
+        console.log(petsArray);
+        setPets(petsArray);
+        setNoPetsFound(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        //alert(`${err} Could not find locations!`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [query]);
   return (
     <div className="results">
@@ -82,13 +71,7 @@ export default function Results() {
       )}
       <div className="results__grid">
         {pets.map((pet: Pet) => {
-          return (
-            <div key={pet._id} className="petCard">
-              <h3 className="petCard__name">{pet.name}</h3>
-              <p>{`${pet.city}, ${pet.state}`}</p>
-              <img className="petCard__image" src={pet.imageUrl} alt="" />
-            </div>
-          );
+          return <PetCard key={pet._id} pet={pet} />;
         })}
       </div>
     </div>

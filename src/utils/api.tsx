@@ -29,10 +29,19 @@ export function getLocationByZipcode(query: string) {
   });
 }
 
-export function getPets({ longitude, latitude }: Coordinate) {
+export function getNearestPets({ longitude, latitude }: Coordinate) {
   return fetch(
     `http://localhost:3001/pets/near?lng=${longitude}&lat=${latitude}`
   ).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  });
+}
+
+export function getRecentPets(n: number) {
+  return fetch(`http://localhost:3001/pets/recent?number=${n}`).then((res) => {
     if (res.ok) {
       return res.json();
     }

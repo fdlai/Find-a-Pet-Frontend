@@ -8,19 +8,3 @@
   gap: 10px;
   justify-content: center;
 }
-
-.petCard {
-  border: 1px solid black;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.petCard__name {
-}
-
-.petCard__image {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  display: block;
-}
