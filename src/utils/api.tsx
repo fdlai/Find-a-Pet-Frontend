@@ -4,11 +4,8 @@ interface Coordinate {
 }
 
 export function getLocationsByName(query: string) {
-  return fetch(
-    `http://api.geonames.org/searchJSON?q=${query}&maxRows=5&country=US&username=${
-      import.meta.env.VITE_GEONAMES_USERNAME
-    }`
-  ).then((res) => {
+  return fetch(`http://localhost:3001/locations?query=${query}`).then((res) => {
+    //checking res.ok is probably not necessar here, since we've done that on the backend now
     if (res.ok) {
       return res.json();
     }

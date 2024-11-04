@@ -27,6 +27,10 @@
   padding-top: 8px;
 }
 
+.header__logo:hover {
+  opacity: 0.8;
+}
+
 .header__logo-image {
   width: 39px;
   display: block;
