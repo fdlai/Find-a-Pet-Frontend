@@ -1,0 +1,39 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.carousel__container {
+  overflow: hidden;
+  display: flex;
+  gap: 10px;
+}
+
+.carousel__item {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+  padding: 0 10px;
+}
+
+.carousel__button {
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  top: 0;
+}
+
+.carousel__button_left {
+  left: -10px;
+}
+
+.carousel__button_right {
+  right: -10px;
+}
+
+.carousel__arrow {
+  width: 20px;
+}
