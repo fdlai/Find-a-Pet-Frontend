@@ -19,3 +19,19 @@
   gap: 20px;
   justify-content: center;
 }
+
+.news-article {
+  border: 1px solid black;
+}
+
+.news-article__title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.news-article__image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}

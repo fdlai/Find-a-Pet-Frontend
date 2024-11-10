@@ -3,7 +3,15 @@ import "../blocks/Carousel.css";
 import leftArrow from "../assets/left-arrow.svg";
 import rightArrow from "../assets/right-arrow.svg";
 
-export default function Carousel({ children, items = [] }) {
+interface CarouselProps<ItemType> {
+  items: Array<ItemType>;
+  renderItem: (item: ItemType, itemIndex: number) => JSX.Element;
+}
+
+export default function Carousel<ItemType>({
+  renderItem,
+  items,
+}: CarouselProps<ItemType>) {
   const [itemIndex, setItemIndex] = useState(0);
 
   function onRightArrowClick() {
@@ -18,18 +26,7 @@ export default function Carousel({ children, items = [] }) {
     <div className="carousel">
       <div className="carousel__container">
         {items.map((item) => {
-          return (
-            <div
-              className="carousel__item"
-              key={item.url}
-              style={{
-                transform: `translateX(-${itemIndex * 100}%)`,
-                flex: `0 0 ${30}%`,
-              }}
-            >
-              {item.title}
-            </div>
-          );
+          return renderItem(item, itemIndex);
         })}
       </div>
       <button

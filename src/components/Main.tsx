@@ -2,7 +2,6 @@ import "../blocks/Main.css";
 import PetCard from "./PetCard";
 import { getRecentPets } from "../utils/api";
 import { useEffect, useState } from "react";
-import { useRevalidator } from "react-router-dom";
 import Carousel from "./Carousel";
 
 interface Pet {
@@ -15,11 +14,55 @@ interface Pet {
 
 interface NewsArticle {
   title: string;
+  url: string;
+  urlToImage: string;
 }
 
 export default function Main() {
+  /* -------------------------------------------------------------------------- */
+  /*                            states and constants                            */
+  /* -------------------------------------------------------------------------- */
   const [pets, setPets] = useState([]);
   const [newsArticles, setNewsArticles] = useState([]);
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  functions                                 */
+  /* -------------------------------------------------------------------------- */
+
+  function renderNewsArticle(item: NewsArticle, itemIndex: number) {
+    return (
+      <div
+        className="news-article carousel__item"
+        key={item.url}
+        style={{
+          transform: `translateX(-${itemIndex * 104.9}%)`,
+          flex: `0 0 ${28.5}%`,
+        }}
+      >
+        <h3
+          onMouseOver={(e: React.MouseEvent<HTMLHeadingElement>) => {
+            (e.target as HTMLHeadingElement).title =
+              (e.target as HTMLHeadingElement).textContent || "";
+          }}
+          className="news-article__title"
+        >
+          {item.title}
+        </h3>
+
+        <a href={item.url} target="_blank">
+          <img
+            src={item.urlToImage}
+            alt={item.title}
+            className="news-article__image"
+          />
+        </a>
+      </div>
+    );
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 useEffects                                 */
+  /* -------------------------------------------------------------------------- */
 
   useEffect(() => {
     getRecentPets(4).then((petsArray) => {
@@ -58,7 +101,8 @@ export default function Main() {
           return <PetCard key={pet._id} pet={pet} />;
         })}
       </div>
-      <Carousel items={newsArticles}></Carousel>
+      <h2>Pet related news:</h2>
+      <Carousel items={newsArticles} renderItem={renderNewsArticle} />
     </main>
   );
 }

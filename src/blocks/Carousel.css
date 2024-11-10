@@ -1,6 +1,6 @@
 .carousel {
   position: relative;
-  width: 100%;
+  width: 670px;
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -24,6 +24,7 @@
   border: none;
   background-color: transparent;
   top: 0;
+  cursor: pointer;
 }
 
 .carousel__button_left {

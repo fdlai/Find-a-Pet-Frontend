@@ -8,9 +8,6 @@ import logoWhite from "../assets/find-a-pet-logo-white.png";
 import dog from "../assets/dog-silhouette.png";
 import magnifyingGlass from "../assets/magnifying-glass.svg";
 
-//http://api.geonames.org/searchJSON?q=${query}&maxRows=5&country=US&username=${import.meta.env.VITE_GEONAMES_USERNAME}
-//http://api.geonames.org/postalCodeSearchJSON?postalcode=${query}&maxRows=1&country=US&username=${import.meta.env.VITE_GEONAMES_USERNAME}
-
 interface Location {
   name: string;
   geonameId: number;
