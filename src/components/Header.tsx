@@ -2,9 +2,6 @@ import "../blocks/Header.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { getLocationsByName } from "../utils/api";
 import { useNavigate, Link } from "react-router-dom";
-import logo from "../assets/find-a-pet-logo.png";
-import logoTurquoise from "../assets/find-a-pet-logo-turquoise.png";
-import logoWhite from "../assets/find-a-pet-logo-white.png";
 import dog from "../assets/dog-silhouette.png";
 import magnifyingGlass from "../assets/magnifying-glass.svg";
 

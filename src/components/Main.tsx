@@ -10,12 +10,15 @@ interface Pet {
   _id: string;
   imageUrl: string;
   state: string;
+  species: string;
 }
 
 interface NewsArticle {
   title: string;
   url: string;
   urlToImage: string;
+  id: undefined | string;
+  hasTransition: boolean;
 }
 
 export default function Main() {
@@ -29,16 +32,13 @@ export default function Main() {
   /*                                  functions                                 */
   /* -------------------------------------------------------------------------- */
 
-  function renderNewsArticle(item: NewsArticle, itemIndex: number) {
+  function renderNewsArticle(
+    item: NewsArticle,
+    itemIndex: number,
+    gap: number
+  ) {
     return (
-      <div
-        className="news-article carousel__item"
-        key={item.url}
-        style={{
-          transform: `translateX(-${itemIndex * 104.9}%)`,
-          flex: `0 0 ${28.5}%`,
-        }}
-      >
+      <div className="news-article">
         <h3
           onMouseOver={(e: React.MouseEvent<HTMLHeadingElement>) => {
             (e.target as HTMLHeadingElement).title =
@@ -46,13 +46,13 @@ export default function Main() {
           }}
           className="news-article__title"
         >
-          {item.title}
+          {item?.title}
         </h3>
 
-        <a href={item.url} target="_blank">
+        <a href={item?.url} target="_blank">
           <img
-            src={item.urlToImage}
-            alt={item.title}
+            src={item?.urlToImage}
+            alt={item?.title}
             className="news-article__image"
           />
         </a>
@@ -102,7 +102,7 @@ export default function Main() {
         })}
       </div>
       <h2>Pet related news:</h2>
-      <Carousel items={newsArticles} renderItem={renderNewsArticle} />
+      <Carousel items={newsArticles} renderItem={renderNewsArticle} gap={10} />
     </main>
   );
 }

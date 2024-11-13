@@ -8,7 +8,6 @@
 .carousel__container {
   overflow: hidden;
   display: flex;
-  gap: 10px;
 }
 
 .carousel__item {

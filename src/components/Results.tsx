@@ -1,12 +1,7 @@
 import "../blocks/Results.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  getLocationsByName,
-  getLocationByZipcode,
-  getNearestPets,
-} from "../utils/api";
-import { isValidZipcode } from "../utils/helpers";
+import { getLocationsByName, getNearestPets } from "../utils/api";
 import PetCard from "./PetCard";
 
 interface Pet {
@@ -15,6 +10,7 @@ interface Pet {
   _id: string;
   imageUrl: string;
   state: string;
+  species: string;
 }
 
 export default function Results() {
