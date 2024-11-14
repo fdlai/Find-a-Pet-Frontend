@@ -32,11 +32,7 @@ export default function Main() {
   /*                                  functions                                 */
   /* -------------------------------------------------------------------------- */
 
-  function renderNewsArticle(
-    item: NewsArticle,
-    itemIndex: number,
-    gap: number
-  ) {
+  function renderNewsArticle(item: NewsArticle) {
     return (
       <div className="news-article">
         <h3
@@ -72,7 +68,7 @@ export default function Main() {
   }, []);
 
   useEffect(() => {
-    fetch("https://newsapi.org/v2/everything?q=pets", {
+    fetch("https://newsapi.org/v2/everything?q=pets&pageSize=30", {
       headers: {
         "X-Api-Key": `${import.meta.env.VITE_NEWS_API_KEY}`,
       },
@@ -102,7 +98,12 @@ export default function Main() {
         })}
       </div>
       <h2>Pet related news:</h2>
-      <Carousel items={newsArticles} renderItem={renderNewsArticle} gap={10} />
+      <Carousel
+        items={newsArticles}
+        renderItem={renderNewsArticle}
+        gap={20}
+        keyProp="url"
+      />
     </main>
   );
 }

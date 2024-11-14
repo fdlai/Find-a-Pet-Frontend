@@ -7,13 +7,12 @@ interface CarouselProps<ItemType> {
   items: Array<ItemType>;
   renderItem: (item: ItemType, itemIndex: number, gap: number) => JSX.Element;
   gap: number;
+  keyProp: keyof ItemType;
 }
 
-export default function Carousel<ItemType>({
-  renderItem,
-  items,
-  gap = 10,
-}: CarouselProps<ItemType>) {
+export default function Carousel<
+  ItemType extends { id?: string | number; hasTransition?: boolean }
+>({ renderItem, items, gap = 10, keyProp }: CarouselProps<ItemType>) {
   const [itemIndex, setItemIndex] = useState(1);
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -24,13 +23,15 @@ export default function Carousel<ItemType>({
     return [
       { ...items[items.length - 1], id: "first" },
       ...items,
-      { ...items[0], id: "last" },
+      { ...items[0], id: "3rdToLast" },
+      { ...items[1], id: "2ndToLast" },
+      { ...items[2], id: "last" },
     ].map((item) => {
       return { ...item, hasTransition: true };
     });
   }, [items]);
 
-  console.log(clonedItems);
+  console.log({ itemIndex, length: clonedItems.length });
 
   function onRightArrowClick() {
     setItemIndex((prev) => prev + 1);
@@ -48,7 +49,7 @@ export default function Carousel<ItemType>({
     });
   }
 
-  function enableTransition<ItemType extends { hasTransition: boolean }>() {
+  function enableTransition() {
     clonedItems.forEach((item) => {
       item.hasTransition = true;
     });
@@ -57,29 +58,27 @@ export default function Carousel<ItemType>({
   function handleTransitionEnd() {
     disableTransition();
     if (itemIndex === 0) {
-      setItemIndex(clonedItems.length - 2);
-    } else if (itemIndex === clonedItems.length - 1) {
+      setItemIndex(clonedItems.length - 4);
+    } else if (itemIndex === clonedItems.length - 3) {
       setItemIndex(1);
     }
     setButtonsDisabled(false);
-    // requestAnimationFrame(() => {
-    //   enableTransition();
-    // });
   }
 
+  // function triggerDebounce() {
+  //   setButtonsDisabled(true);
+  //   setTimeout(() => {
+  //     setButtonsDisabled(false);
+  //   }, 300);
+  // }
+
   useEffect(() => {
-    if (itemIndex === 0) {
+    if (itemIndex === 0 || itemIndex === clonedItems.length - 3) {
       setButtonsDisabled(true);
       itemRefs.current.forEach((divEl) => {
         divEl?.addEventListener("transitionend", handleTransitionEnd);
       });
-    } else if (itemIndex === clonedItems.length - 1) {
-      setButtonsDisabled(true);
-      itemRefs.current.forEach((divEl) => {
-        divEl?.addEventListener("transitionend", handleTransitionEnd);
-      });
-    }
-    if (itemIndex === 1 || itemIndex === clonedItems.length - 2) {
+    } else if (itemIndex === 1 || itemIndex === clonedItems.length - 4) {
       enableTransition();
     }
     return () => {
@@ -89,17 +88,6 @@ export default function Carousel<ItemType>({
     };
   }, [itemIndex]);
 
-  // useEffect(() => {
-  //   if (itemIndex === 1 || itemIndex === clonedItems.length - 3) {
-  //     requestAnimationFrame(() => {
-  //       disableTransition();
-  //       //setItemIndex(clonedItems.length - 4);
-  //     });
-  //   } else {
-  //     enableTransition();
-  //   }
-  // }, [itemIndex]);
-
   return (
     <div className="carousel">
       <div className="carousel__container" style={{ gap: `${gap}px` }}>
@@ -107,10 +95,10 @@ export default function Carousel<ItemType>({
           return (
             <div
               className="carousel__item"
-              key={item.id || item?.url}
+              key={item.id ?? (item[keyProp] as string | number)}
               style={{
                 transform: `translateX(calc(${-itemIndex} * (100% + ${gap}px)))`,
-                flex: `0 0 ${28.5}%`,
+                flex: `0 0 ${31}%`,
                 ...(item.hasTransition === false && { transition: "none" }),
               }}
               ref={(element) => (itemRefs.current[index] = element)}
