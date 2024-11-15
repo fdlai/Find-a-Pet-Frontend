@@ -45,3 +45,12 @@ export function getRecentPets(n: number) {
     return Promise.reject(res.status);
   });
 }
+
+export function getPetInfo(id: string) {
+  return fetch(`http://localhost:3001/pets/info/${id}`).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  });
+}

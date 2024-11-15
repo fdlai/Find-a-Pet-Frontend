@@ -5,6 +5,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import Results from "./Results";
 import { Routes, Route } from "react-router-dom";
+import PetInfo from "./PetInfo";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/search/:query" element={<Results />} />
+                <Route path="/info/:id" element={<PetInfo />} />
               </Routes>
             </div>
             <Footer />

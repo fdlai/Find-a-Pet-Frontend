@@ -1,5 +1,6 @@
 import "../blocks/PetCard.css";
 import { SyntheticEvent } from "react";
+import { Link } from "react-router-dom";
 
 interface Pet {
   pet: {
@@ -15,7 +16,12 @@ interface Pet {
 export default function PetCard({ pet }: Pet) {
   return (
     <div key={pet._id} className="petCard">
-      <h3 className="petCard__name">{pet.name}</h3>
+      <Link
+        to={`/pets/info/${pet._id}`}
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <h3 className="petCard__name">{pet.name}</h3>
+      </Link>
       <p>{`${pet.city}, ${pet.state}`}</p>
       <img
         className="petCard__image"

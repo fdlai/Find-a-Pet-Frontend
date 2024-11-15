@@ -21,7 +21,6 @@ export default function Results() {
   const { query } = useParams();
   console.log(query);
 
-  console.log(noPetsFound);
   useEffect(() => {
     if (!query) {
       return;
