@@ -1,3 +1,12 @@
 .pet-info {
   padding-top: 60px;
 }
+
+.pet-info__image {
+  width: 90%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  /* border: 2px solid black; */
+  border-radius: 3%;
+  cursor: zoom-out;
+}
