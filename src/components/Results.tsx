@@ -1,6 +1,6 @@
 import "../blocks/Results.css";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { getLocationsByName, getNearestPets } from "../utils/api";
 import PetCard from "./PetCard";
 
@@ -19,7 +19,9 @@ export default function Results() {
   const [currentLocation, setCurrentLocation] = useState({ name: "" });
   const [isLoading, setIsLoading] = useState(true);
   const { query } = useParams();
+  const location = useLocation();
   console.log(query);
+  console.log(location);
 
   useEffect(() => {
     if (!query) {
@@ -40,6 +42,7 @@ export default function Results() {
         return getNearestPets({
           longitude: data.geonames[0].lng,
           latitude: data.geonames[0].lat,
+          queryString: location.search.replace(/^\?/, ""),
         });
       })
       .then((petsArray) => {

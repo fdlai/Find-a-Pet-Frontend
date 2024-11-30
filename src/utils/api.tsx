@@ -1,6 +1,7 @@
 interface Coordinate {
   longitude: string;
   latitude: string;
+  queryString: string;
 }
 
 export function getLocationsByName(query: string) {
@@ -26,9 +27,13 @@ export function getLocationByZipcode(query: string) {
   });
 }
 
-export function getNearestPets({ longitude, latitude }: Coordinate) {
+export function getNearestPets({
+  longitude,
+  latitude,
+  queryString,
+}: Coordinate) {
   return fetch(
-    `http://localhost:3001/pets/near?lng=${longitude}&lat=${latitude}`
+    `http://localhost:3001/pets/near?${queryString}&lng=${longitude}&lat=${latitude}`
   ).then((res) => {
     if (res.ok) {
       return res.json();

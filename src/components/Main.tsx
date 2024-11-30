@@ -3,6 +3,7 @@ import PetCard from "./PetCard";
 import { getRecentPets } from "../utils/api";
 import { useEffect, useState } from "react";
 import Carousel from "./Carousel";
+import SlickCarousel from "./SlickCarousel";
 
 interface Pet {
   name: string;
@@ -98,7 +99,7 @@ export default function Main() {
         })}
       </div>
       <h2>Pet related news:</h2>
-      <Carousel
+      <SlickCarousel
         items={newsArticles}
         renderItem={renderNewsArticle}
         gap={20}
