@@ -2,7 +2,6 @@ import "../blocks/Main.css";
 import PetCard from "./PetCard";
 import { getRecentPets } from "../utils/api";
 import { useEffect, useState } from "react";
-import Carousel from "./Carousel";
 import SlickCarousel from "./SlickCarousel";
 
 interface Pet {
@@ -33,30 +32,6 @@ export default function Main() {
   /*                                  functions                                 */
   /* -------------------------------------------------------------------------- */
 
-  function renderNewsArticle(item: NewsArticle) {
-    return (
-      <div className="news-article">
-        <h3
-          onMouseOver={(e: React.MouseEvent<HTMLHeadingElement>) => {
-            (e.target as HTMLHeadingElement).title =
-              (e.target as HTMLHeadingElement).textContent || "";
-          }}
-          className="news-article__title"
-        >
-          {item?.title}
-        </h3>
-
-        <a href={item?.url} target="_blank">
-          <img
-            src={item?.urlToImage}
-            alt={item?.title}
-            className="news-article__image"
-          />
-        </a>
-      </div>
-    );
-  }
-
   /* -------------------------------------------------------------------------- */
   /*                                 useEffects                                 */
   /* -------------------------------------------------------------------------- */
@@ -69,7 +44,7 @@ export default function Main() {
   }, []);
 
   useEffect(() => {
-    fetch("https://newsapi.org/v2/everything?q=pets&pageSize=30", {
+    fetch("https://newsapi.org/v2/everything?q=pets&pageSize=75", {
       headers: {
         "X-Api-Key": `${import.meta.env.VITE_NEWS_API_KEY}`,
       },
@@ -99,12 +74,7 @@ export default function Main() {
         })}
       </div>
       <h2>Pet related news:</h2>
-      <SlickCarousel
-        items={newsArticles}
-        renderItem={renderNewsArticle}
-        gap={20}
-        keyProp="url"
-      />
+      <SlickCarousel items={newsArticles} />
     </main>
   );
 }

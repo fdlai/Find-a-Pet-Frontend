@@ -21,7 +21,11 @@
 }
 
 .news-article {
+}
+
+.news-article__content {
   border: 1px solid black;
+  margin: 10px;
 }
 
 .news-article__title {
