@@ -1,6 +1,5 @@
 import Slider from "react-slick";
 import "../blocks/SlickCarousel.css";
-import "../blocks/Carousel.css";
 
 interface NewsArticle {
   title: string;

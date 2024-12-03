@@ -20,8 +20,8 @@ export default function Results() {
   const [isLoading, setIsLoading] = useState(true);
   const { query } = useParams();
   const location = useLocation();
-  console.log(query);
-  console.log(location);
+
+  console.log(location.search);
 
   useEffect(() => {
     if (!query) {
@@ -31,13 +31,9 @@ export default function Results() {
     getLocationsByName(query)
       .then((data) => {
         console.log(data);
-        console.log(data.geonames[0]);
         if (data.geonames.length === 0) {
-          setPets([]);
-          setNoPetsFound(true);
-          throw new Error("Could not find any pets at this location");
+          throw new Error("Could not find any locations that match this name");
         }
-        console.log(typeof data.geonames[0].lat);
         setCurrentLocation(data.geonames[0]);
         return getNearestPets({
           longitude: data.geonames[0].lng,
@@ -46,18 +42,19 @@ export default function Results() {
         });
       })
       .then((petsArray) => {
-        console.log(petsArray);
         setPets(petsArray);
         setNoPetsFound(false);
       })
       .catch((err) => {
         console.error(err);
+        setPets([]);
+        setNoPetsFound(true);
         //alert(`${err} Could not find locations!`);
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, [query]);
+  }, [query, location.search]);
   return (
     <div className="results">
       {!isLoading && (

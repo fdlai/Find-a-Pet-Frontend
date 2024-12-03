@@ -171,3 +171,8 @@
   top: 0;
   bottom: 0;
 }
+
+.header__filters {
+  position: fixed;
+  top: 50px;
+}

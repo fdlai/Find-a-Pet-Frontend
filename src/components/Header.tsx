@@ -1,7 +1,7 @@
 import "../blocks/Header.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { getLocationsByName } from "../utils/api";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import dog from "../assets/dog-silhouette.png";
 import magnifyingGlass from "../assets/magnifying-glass.svg";
 
@@ -9,6 +9,10 @@ interface Location {
   name: string;
   geonameId: number;
 }
+
+type Filters = {
+  [key: string]: string;
+};
 
 export default function Header() {
   /* -------------------------------------------------------------------------- */
@@ -18,6 +22,12 @@ export default function Header() {
   const [keyPressCount, setKeyPressCount] = useState(0);
   const [similarLocations, setSimilarLocations] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [filters, setFilters] = useState<Filters>({});
+
+  const filtersString = new URLSearchParams(filters).toString();
+  const location = useLocation();
+
+  console.log(location);
 
   const ulStyle: React.CSSProperties | undefined = {
     maxHeight: `calc(30px + ${similarLocations.length * 25}px)`,
@@ -39,8 +49,25 @@ export default function Header() {
     if (!query) {
       return;
     }
-    navigate(`/pets/search/${query}`);
+    navigate(
+      `/pets/search/${query}${filtersString ? "?" + filtersString : ""}`
+    );
     setShowDropdown(false);
+  }
+
+  function handleFiltersChange(
+    e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) {
+    const { name, value } = e.target;
+
+    if (!value) {
+      const newFilters = { ...filters };
+      delete newFilters[name];
+      setFilters(newFilters);
+      return;
+    }
+
+    setFilters({ ...filters, [name]: value });
   }
 
   /* -------------------------------------------------------------------------- */
@@ -49,7 +76,6 @@ export default function Header() {
 
   useEffect(() => {
     if (query.length >= 3 && keyPressCount >= 5) {
-      //make the fetch
       getLocationsByName(query)
         .then((data) => {
           setSimilarLocations(data.geonames);
@@ -62,6 +88,32 @@ export default function Header() {
         });
     }
   }, [query]);
+
+  useEffect(() => {
+    //any search filters found in the url are set in the filters state variable
+    const params = new URLSearchParams(location.search);
+    const updatedFilters = { ...filters };
+    params.forEach((value, key) => {
+      updatedFilters[key] = value;
+    });
+
+    setFilters(updatedFilters);
+  }, [location.search]);
+
+  useEffect(() => {
+    //if the url path starts with "/pets/search/", then we set the query state to be the city/query that follows
+    if (!location.pathname.startsWith("/pets/search/")) {
+      return;
+    }
+    const match = location.pathname.match(
+      /(?<=\/pets\/search\/)[a-zA-Z0-9+%.,'’()\-]+/
+    );
+
+    if (match) {
+      const queriedLocation = decodeURIComponent(match[0]);
+      setQuery(queriedLocation);
+    }
+  }, [location.pathname]);
 
   return (
     <header className="header">
@@ -134,6 +186,68 @@ export default function Header() {
         </form>
       </div>
       <div className="header__left-bar"></div>
+      <div className="header__filters">
+        <label>
+          Species
+          <select
+            value={filters.species || ""}
+            name="species"
+            onChange={handleFiltersChange}
+          >
+            <option value="">Any</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+          </select>
+        </label>
+        <label>
+          Breed
+          <input
+            onChange={handleFiltersChange}
+            value={filters.breed || ""}
+            name="breed"
+            type="text"
+          />
+        </label>
+        <label>
+          Sex
+          <select
+            value={filters.sex || ""}
+            name="sex"
+            onChange={handleFiltersChange}
+          >
+            <option value="">Any</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </label>
+        <label>
+          Age
+          <select
+            value={filters.age || ""}
+            name="age"
+            onChange={handleFiltersChange}
+          >
+            <option value="">Any</option>
+            <option value="young">Young</option>
+            <option value="adolescent">Adolescent</option>
+            <option value="adult">Adult</option>
+            <option value="senior">Senior</option>
+          </select>
+        </label>
+        <label>
+          Size
+          <select
+            value={filters.size || ""}
+            name="size"
+            onChange={handleFiltersChange}
+          >
+            <option value="">Any</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </label>
+      </div>
     </header>
   );
 }
