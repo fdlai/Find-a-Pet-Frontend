@@ -124,23 +124,22 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__top-bar">
-        <HamburgerButton
-          onClick={handleHamburgerButtonClick}
-          style={{ position: "absolute", top: "15px", left: "15px" }}
-        />
-        <div className="header__logo-container">
-          <Link style={{ textDecoration: "none" }} to={"/pets"}>
-            <div className="header__logo">
-              <img
-                src={dog}
-                alt="Find a Pet logo"
-                className="header__logo-image"
-              />
-              <p className="header__logo-text">
-                Find a <span className="header__logo-text-accent">Pet</span>
-              </p>
-            </div>
-          </Link>
+        <div className="header__icon-container">
+          <HamburgerButton onClick={handleHamburgerButtonClick} />
+          <div className="header__logo-container">
+            <Link style={{ textDecoration: "none" }} to={"/pets"}>
+              <div className="header__logo">
+                <img
+                  src={dog}
+                  alt="Find a Pet logo"
+                  className="header__logo-image"
+                />
+                <p className="header__logo-text">
+                  Find a <span className="header__logo-text-accent">Pet</span>
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
         <form className="header__form" onSubmit={handleSubmit}>
           <input

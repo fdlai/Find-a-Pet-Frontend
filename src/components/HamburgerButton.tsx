@@ -1,5 +1,6 @@
 import "../blocks/HamburgerButton.css";
 import { CSSProperties, MouseEventHandler } from "react";
+import hamburgerIcon from "../assets/hamburger-icon.svg";
 
 type HamburgerButtonProps = {
   style?: CSSProperties;
@@ -12,9 +13,11 @@ export default function HamburgerButton({
 }: HamburgerButtonProps) {
   return (
     <button onClick={onClick} className="hamburger-button" style={style}>
-      <span className="hamburger-button__line"></span>
-      <span className="hamburger-button__line"></span>
-      <span className="hamburger-button__line"></span>
+      <img
+        src={hamburgerIcon}
+        alt="hamburger-icon"
+        className="hamburger-button__image"
+      />
     </button>
   );
 }
