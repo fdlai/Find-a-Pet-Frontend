@@ -4,6 +4,7 @@ import { getLocationsByName } from "../utils/api";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import dog from "../assets/dog-silhouette.png";
 import magnifyingGlass from "../assets/magnifying-glass.svg";
+import HamburgerButton from "./HamburgerButton";
 
 interface Location {
   name: string;
@@ -23,6 +24,7 @@ export default function Header() {
   const [similarLocations, setSimilarLocations] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [filters, setFilters] = useState<Filters>({});
+  const [sideMenuOpen, setSideMenuOpen] = useState(false);
 
   const filtersString = new URLSearchParams(filters).toString();
   const location = useLocation();
@@ -68,6 +70,10 @@ export default function Header() {
     }
 
     setFilters({ ...filters, [name]: value });
+  }
+
+  function handleHamburgerButtonClick() {
+    setSideMenuOpen(!sideMenuOpen);
   }
 
   /* -------------------------------------------------------------------------- */
@@ -118,6 +124,10 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__top-bar">
+        <HamburgerButton
+          onClick={handleHamburgerButtonClick}
+          style={{ position: "absolute", top: "15px", left: "15px" }}
+        />
         <div className="header__logo-container">
           <Link style={{ textDecoration: "none" }} to={"/pets"}>
             <div className="header__logo">
@@ -185,68 +195,74 @@ export default function Header() {
           </button>
         </form>
       </div>
-      <div className="header__left-bar"></div>
-      <div className="header__filters">
-        <label>
-          Species
-          <select
-            value={filters.species || ""}
-            name="species"
-            onChange={handleFiltersChange}
-          >
-            <option value="">Any</option>
-            <option value="dog">Dog</option>
-            <option value="cat">Cat</option>
-          </select>
-        </label>
-        <label>
-          Breed
-          <input
-            onChange={handleFiltersChange}
-            value={filters.breed || ""}
-            name="breed"
-            type="text"
-          />
-        </label>
-        <label>
-          Sex
-          <select
-            value={filters.sex || ""}
-            name="sex"
-            onChange={handleFiltersChange}
-          >
-            <option value="">Any</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </label>
-        <label>
-          Age
-          <select
-            value={filters.age || ""}
-            name="age"
-            onChange={handleFiltersChange}
-          >
-            <option value="">Any</option>
-            <option value="young">Young</option>
-            <option value="adolescent">Adolescent</option>
-            <option value="adult">Adult</option>
-            <option value="senior">Senior</option>
-          </select>
-        </label>
-        <label>
-          Size
-          <select
-            value={filters.size || ""}
-            name="size"
-            onChange={handleFiltersChange}
-          >
-            <option value="">Any</option>
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-          </select>
-        </label>
+      <div
+        className={`header__left-bar ${
+          sideMenuOpen && "header__left-bar_opened"
+        }`}
+      >
+        <HamburgerButton onClick={handleHamburgerButtonClick} />
+        <div className="header__filters">
+          <label className="header__filter">
+            Species
+            <select
+              value={filters.species || ""}
+              name="species"
+              onChange={handleFiltersChange}
+            >
+              <option value="">Any</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </label>
+          <label className="header__filter">
+            Breed
+            <input
+              onChange={handleFiltersChange}
+              value={filters.breed || ""}
+              name="breed"
+              type="text"
+            />
+          </label>
+          <label className="header__filter">
+            Sex
+            <select
+              value={filters.sex || ""}
+              name="sex"
+              onChange={handleFiltersChange}
+            >
+              <option value="">Any</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </label>
+          <label className="header__filter">
+            Age
+            <select
+              value={filters.age || ""}
+              name="age"
+              onChange={handleFiltersChange}
+            >
+              <option value="">Any</option>
+              <option value="young">Young</option>
+              <option value="adolescent">Adolescent</option>
+              <option value="adult">Adult</option>
+              <option value="senior">Senior</option>
+            </select>
+          </label>
+          <label className="header__filter">
+            Size
+            <select
+              value={filters.size || ""}
+              name="size"
+              onChange={handleFiltersChange}
+            >
+              <option value="">Any</option>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </label>
+        </div>
       </div>
     </header>
   );

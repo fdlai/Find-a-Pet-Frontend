@@ -1,0 +1,14 @@
+.hamburger-button {
+  padding: 5px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-radius: 5px;
+}
+
+.hamburger-button__line {
+  border-bottom: 2px solid black;
+  display: block;
+  width: 15px;
+  height: 1px;
+}

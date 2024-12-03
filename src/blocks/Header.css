@@ -15,7 +15,7 @@
 
 .header__logo-container {
   position: absolute;
-  left: 30px;
+  left: 50px;
   top: 0;
   bottom: 0;
   display: flex;
@@ -167,12 +167,29 @@
 
 .header__left-bar {
   position: fixed;
-  background-color: bisque;
+  background-color: white;
   top: 0;
+  left: 0;
   bottom: 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease, visibility 0.3s;
+  visibility: hidden;
+}
+
+.header__left-bar_opened {
+  transform: translateX(0);
+  visibility: visible;
 }
 
 .header__filters {
-  position: fixed;
-  top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.header__filter {
+  display: flex;
+  flex-direction: column;
 }
