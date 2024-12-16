@@ -52,7 +52,7 @@ export default function Header() {
       return;
     }
     navigate(
-      `/pets/search/${query}${filtersString ? "?" + filtersString : ""}`
+      `/pets/search/${query}?${filtersString ? filtersString + "&" : ""}page=1`
     );
     setShowDropdown(false);
   }
@@ -100,6 +100,10 @@ export default function Header() {
     const params = new URLSearchParams(location.search);
     const updatedFilters = { ...filters };
     params.forEach((value, key) => {
+      if (key === "page") {
+        //ignore adding the 'page' parameter to 'filters'
+        return;
+      }
       updatedFilters[key] = value;
     });
 

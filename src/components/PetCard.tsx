@@ -11,17 +11,16 @@ interface Pet {
     state: string;
     species: string;
   };
+  color?: String;
 }
 
-export default function PetCard({ pet }: Pet) {
+export default function PetCard({ pet, color = "white" }: Pet) {
   return (
     <Link
       to={`/pets/info/${pet._id}`}
       style={{ textDecoration: "none", color: "black" }}
     >
       <div key={pet._id} className="petCard">
-        <h3 className="petCard__name">{pet.name}</h3>
-        <p>{`${pet.city}, ${pet.state}`}</p>
         <img
           className="petCard__image"
           src={pet.imageUrl}
@@ -31,6 +30,13 @@ export default function PetCard({ pet }: Pet) {
               "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg")
           }
         />
+        <div
+          className="petCard__info-container"
+          style={{ backgroundColor: `${color}` }}
+        >
+          <h3 className="petCard__name">{pet.name}</h3>
+          <p className="petCard__location">{`${pet.city}, ${pet.state}`}</p>
+        </div>
       </div>
     </Link>
   );

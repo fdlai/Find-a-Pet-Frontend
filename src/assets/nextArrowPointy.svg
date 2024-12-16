@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50" width="100" height="50">
+  <!-- First Triangle -->
+  <polygon points="10,0 40,25 10,50" fill="#000000"/>
+  
+  <!-- Second Triangle -->
+  <polygon points="30,0 60,25 30,50" fill="#000000"/>
+</svg>

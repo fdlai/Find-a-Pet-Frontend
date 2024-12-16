@@ -16,4 +16,5 @@
 
 .hamburger-button__image {
   width: 29px;
+  -webkit-user-drag: none;
 }

@@ -3,6 +3,7 @@ import PetCard from "./PetCard";
 import { getRecentPets } from "../utils/api";
 import { useEffect, useState } from "react";
 import SlickCarousel from "./SlickCarousel";
+import { colors } from "../utils/helpers";
 
 interface Pet {
   name: string;
@@ -69,8 +70,14 @@ export default function Main() {
     <main className="main">
       <h2>Recently added pets:</h2>
       <div className="main__recent-pets">
-        {pets.map((pet: Pet) => {
-          return <PetCard key={pet._id} pet={pet} />;
+        {pets.map((pet: Pet, index) => {
+          return (
+            <PetCard
+              key={pet._id}
+              pet={pet}
+              color={colors[index % colors.length]}
+            />
+          );
         })}
       </div>
       <h2>Pet related news:</h2>
