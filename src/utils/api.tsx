@@ -1,3 +1,8 @@
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.petfinder.jumpingcrab.com"
+    : "http://localhost:3001";
+
 interface Coordinate {
   longitude: string;
   latitude: string;
@@ -5,7 +10,7 @@ interface Coordinate {
 }
 
 export function getLocationsByName(query: string) {
-  return fetch(`http://localhost:3001/locations?query=${query}`).then((res) => {
+  return fetch(`${baseUrl}/locations?query=${query}`).then((res) => {
     //checking res.ok is probably not necessar here, since we've done that on the backend now
     if (res.ok) {
       return res.json();
@@ -33,7 +38,7 @@ export function getNearestPets({
   queryString,
 }: Coordinate) {
   return fetch(
-    `http://localhost:3001/pets/near?${queryString}&lng=${longitude}&lat=${latitude}`
+    `${baseUrl}/pets/near?${queryString}&lng=${longitude}&lat=${latitude}`
   ).then((res) => {
     if (res.ok) {
       return res.json();
@@ -43,7 +48,7 @@ export function getNearestPets({
 }
 
 export function getRecentPets(n: number) {
-  return fetch(`http://localhost:3001/pets/recent?number=${n}`).then((res) => {
+  return fetch(`${baseUrl}/pets/recent?number=${n}`).then((res) => {
     if (res.ok) {
       return res.json();
     }
@@ -52,7 +57,7 @@ export function getRecentPets(n: number) {
 }
 
 export function getPetInfo(id: string) {
-  return fetch(`http://localhost:3001/pets/info/${id}`).then((res) => {
+  return fetch(`${baseUrl}/pets/info/${id}`).then((res) => {
     if (res.ok) {
       return res.json();
     }

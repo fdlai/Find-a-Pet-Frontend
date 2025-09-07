@@ -76,6 +76,10 @@ export default function Header() {
     setSideMenuOpen(!sideMenuOpen);
   }
 
+  function closeSideBar() {
+    setSideMenuOpen(false);
+  }
+
   /* -------------------------------------------------------------------------- */
   /*                                 useEffects                                 */
   /* -------------------------------------------------------------------------- */
@@ -124,6 +128,21 @@ export default function Header() {
       setQuery(queriedLocation);
     }
   }, [location.pathname]);
+
+  //close sidebar by escape
+  useEffect(() => {
+    function handlePressEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        closeSideBar();
+      }
+    }
+    if (sideMenuOpen) {
+      document.addEventListener("keydown", handlePressEscape);
+    }
+    return () => {
+      document.removeEventListener("keydown", handlePressEscape);
+    };
+  }, [sideMenuOpen]);
 
   return (
     <header className="header">
@@ -267,6 +286,12 @@ export default function Header() {
           </label>
         </div>
       </div>
+      <div
+        className={`header__overlay ${
+          sideMenuOpen && "header__overlay_visible"
+        }`}
+        onClick={closeSideBar}
+      ></div>
     </header>
   );
 }

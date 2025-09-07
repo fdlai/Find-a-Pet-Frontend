@@ -27,6 +27,7 @@ function App() {
           </div>
         }
       />
+      <Route path="*" element={<div>Route does not exist!</div>} />
     </Routes>
   );
 }
