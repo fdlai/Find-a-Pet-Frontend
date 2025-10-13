@@ -3,11 +3,20 @@
 Find-a-Pet is a full-stack web application that helps users discover adoptable pets in their area.  
 Users can search by **city or ZIP code** (with autocomplete), browse detailed profiles, and view available pets by type.
 
+🔗 **Live Demo:** [https://petfinder.jumpingcrab.com/](https://petfinder.jumpingcrab.com/)
+
+---
+
 ## 🚀 About the Project
 
-Find-a-Pet was built to make pet adoption simpler and more user-friendly by connecting people with nearby shelters and rescues.  
+### Overview
+
+Find-a-Pet was built to make pet adoption simpler and more user-friendly by connecting people with nearby shelters and rescues.
+
+### Purpose
+
 To demonstrate full-stack development skills, the app uses **sample pet data** generated for development and testing.  
-The backend includes a custom database and API layer designed to handle real-world functionality, such as user authentication and data persistence.
+This allows for a fully custom backend with data seeding, authentication, and RESTful API design — rather than relying on external APIs.
 
 ### Features
 
@@ -17,7 +26,9 @@ The backend includes a custom database and API layer designed to handle real-wor
 - User authentication and persistent favorites list (via backend API)
 
 This repository contains the **frontend**, built with modern React and TypeScript.  
-The backend (in a separate repo) provides RESTful APIs, data seeding, and authentication with Node.js, Express, and MongoDB.
+The **backend** (in a separate repo) provides RESTful APIs, data seeding, and authentication with Node.js, Express, and MongoDB.
+
+---
 
 ## 🧠 Tech Stack
 
@@ -30,11 +41,13 @@ The backend (in a separate repo) provides RESTful APIs, data seeding, and authen
 - Axios
 - Tailwind CSS
 
-**Backend:**
+**Backend (separate repo):**
 
 - Node.js
 - Express
 - MongoDB / Mongoose
+
+---
 
 ## 🧩 Key Features
 
@@ -45,6 +58,8 @@ The backend (in a separate repo) provides RESTful APIs, data seeding, and authen
 | 🐶 Filtering      | Browse pets by type (dogs, cats, etc.)                        |
 | 🖥️ Responsive UI  | Works seamlessly across desktop and mobile devices            |
 | 🔐 Authentication | Secure login and account management via API                   |
+
+---
 
 ## 📦 Installation
 
