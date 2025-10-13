@@ -1,47 +1,65 @@
-# Find a Pet
+# 🐾 Find-a-Pet
 
-Find a Pet is a web application designed to help users find pets available for adoption based on location. The platform integrates a custom backend to store and manage pet data.
+Find-a-Pet is a full-stack web application that helps users discover adoptable pets in their area.  
+Users can search by **city or ZIP code** (with autocomplete), browse detailed profiles, and view available pets by type.
 
-## Features
+## 🚀 About the Project
 
-- Search for pets by city name or ZIP code
-- Autocomplete suggestions for city names
-- Detailed pet profiles including images, breed, and description
-- Custom-built backend to manage pet data
+Find-a-Pet was built to make pet adoption simpler and more user-friendly by connecting people with nearby shelters and rescues.  
+To demonstrate full-stack development skills, the app uses **sample pet data** generated for development and testing.  
+The backend includes a custom database and API layer designed to handle real-world functionality, such as user authentication and data persistence.
 
-## Tech Stack
+### Features
 
-- **Frontend:** React, HTML, CSS, JavaScript
-- **Backend:** [Find a Pet Backend](https://github.com/fdlai/Find-a-Pet-Backend) (Node.js, Express, MongoDB)
+- Real-time search using city or ZIP input with autocomplete suggestions
+- Individual pet detail pages with photos and descriptions
+- Responsive layout optimized for both desktop and mobile
+- User authentication and persistent favorites list (via backend API)
 
-## Installation
+This repository contains the **frontend**, built with modern React and TypeScript.  
+The backend (in a separate repo) provides RESTful APIs, data seeding, and authentication with Node.js, Express, and MongoDB.
 
-1. Clone the repository:
+## 🧠 Tech Stack
 
-   ```sh
-   git clone https://github.com/fdlai/Find-a-Pet.git
-   cd Find-a-Pet
-   ```
+**Frontend:**
 
-2. Install dependencies:
+- React
+- TypeScript
+- Vite
+- React Router
+- Axios
+- Tailwind CSS
 
-   ```sh
-   npm install
-   ```
+**Backend:**
 
-3. Start the development server:
+- Node.js
+- Express
+- MongoDB / Mongoose
 
-   ```sh
-   npm start
-   ```
+## 🧩 Key Features
 
-## Backend Setup
+| Feature           | Description                                                   |
+| ----------------- | ------------------------------------------------------------- |
+| 🔍 Search         | Users can search by city or ZIP with autocomplete suggestions |
+| ❤️ Favorites      | Save pets to a personal favorites list                        |
+| 🐶 Filtering      | Browse pets by type (dogs, cats, etc.)                        |
+| 🖥️ Responsive UI  | Works seamlessly across desktop and mobile devices            |
+| 🔐 Authentication | Secure login and account management via API                   |
 
-This project relies on a custom backend, which you can find here:  
-[Find a Pet Backend](https://github.com/fdlai/Find-a-Pet-Backend)
+## 📦 Installation
 
-Follow the backend README instructions to set it up.
+To run the frontend locally:
 
-## Contributing
+```bash
+# Clone the repository
+git clone https://github.com/fdlai/Find-a-Pet-Frontend.git
 
-Feel free to fork this repository and submit pull requests for improvements or bug fixes.
+# Navigate to the project directory
+cd Find-a-Pet-Frontend
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```

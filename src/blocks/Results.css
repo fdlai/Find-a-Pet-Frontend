@@ -40,7 +40,7 @@
   right: 3px;
 }
 
-@media screen and (max-width: 1269px) {
+/* @media screen and (max-width: 1269px) {
   .results__heading {
     max-width: 920px;
   }
@@ -49,5 +49,11 @@
 @media screen and (max-width: 959px) {
   .results__heading {
     max-width: 610px;
+  }
+} */
+
+@media screen and (max-width: 650px) {
+  .results__grid {
+    grid-template-columns: 100%;
   }
 }
