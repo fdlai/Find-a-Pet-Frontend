@@ -93,7 +93,7 @@ export default function Results() {
         <h2 className="results__heading">
           {noPetsFound
             ? "No pets found"
-            : `Nearest pets to ${currentLocation.name}:`}
+            : `Nearest pets to ${currentLocation.name}`}
         </h2>
       )}
       <div className="results__grid">

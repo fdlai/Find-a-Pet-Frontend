@@ -1,3 +1,20 @@
+:root {
+  --bg: #fffaf3;
+  --bg-accent: #fff3e7;
+  --panel: #ffffff;
+  --text: #1d2230;
+  --muted: #6c7280;
+  --accent: #ff8a3d;
+  --accent-2: #ffd9bf;
+  --accent-3: #aee6d3;
+  --radius: 18px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --max: 1100px;
+  --topPadding: 85px;
+  --segoe: "Segoe UI", "Lora", Geneva, Verdana, sans-serif;
+}
+
 body {
   margin: 0;
 }
@@ -7,12 +24,13 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
   justify-content: space-between;
-  max-width: 1440px;
   margin: 0 auto;
   font-family: "Lora", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
     Arial, sans-serif;
   align-items: center;
   padding: 0 36px;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .page__content {

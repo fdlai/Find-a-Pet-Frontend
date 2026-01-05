@@ -1,5 +1,6 @@
 import "../blocks/ImageModal.css";
-import { MouseEvent, useEffect } from "react";
+import { MouseEvent, useEffect, SyntheticEvent } from "react";
+import imageNotFound from "../assets/image-not-found.jpg";
 
 interface ImageModalProps {
   imageUrl: string;
@@ -45,7 +46,14 @@ export default function ImageModal({
         <button className="modal__close-button" onClick={closeModal}>
           Close
         </button>
-        <img src={imageUrl} alt={altText} className="modal__image" />{" "}
+        <img
+          src={imageUrl}
+          alt={altText}
+          className="modal__image"
+          onError={(e: SyntheticEvent<HTMLImageElement>) =>
+            ((e.target as HTMLImageElement).src = imageNotFound)
+          }
+        />{" "}
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ This allows for a fully custom backend with data seeding, authentication, and RE
 - Individual pet detail pages with photos and descriptions
 - Responsive layout optimized for both desktop and mobile
 - User authentication and persistent favorites list (via backend API)
+- Pet searching using different filters: species, breed, sex, age, and size
 
 This repository contains the **frontend**, built with modern React and TypeScript.  
 The **backend** (in a separate repo) provides RESTful APIs, data seeding, and authentication with Node.js, Express, and MongoDB.
@@ -38,8 +39,7 @@ The **backend** (in a separate repo) provides RESTful APIs, data seeding, and au
 - TypeScript
 - Vite
 - React Router
-- Axios
-- Tailwind CSS
+- BEM class naming
 
 **Backend (separate repo):**
 

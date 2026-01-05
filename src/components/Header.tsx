@@ -2,7 +2,7 @@ import "../blocks/Header.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { getLocationsByName } from "../utils/api";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import dog from "../assets/dog-silhouette.png";
+// import dog from "../assets/dog-silhouette.png";
 import magnifyingGlass from "../assets/magnifying-glass.svg";
 import HamburgerButton from "./HamburgerButton";
 
@@ -149,7 +149,7 @@ export default function Header() {
       <div className="header__top-bar">
         <div className="header__icon-container">
           <HamburgerButton onClick={handleHamburgerButtonClick} />
-          <div className="header__logo-container">
+          {/* <div className="header__logo-container">
             <Link style={{ textDecoration: "none" }} to={"/pets"}>
               <div className="header__logo">
                 <img
@@ -162,7 +162,13 @@ export default function Header() {
                 </p>
               </div>
             </Link>
-          </div>
+          </div> */}
+          <Link to="/" className="header__link">
+            <div className="header__brand brand">
+              <div className="brand__logo">🐾</div>
+              <div className="brand__name">Find‑a‑Pet</div>
+            </div>
+          </Link>
         </div>
         <form className="header__form" onSubmit={handleSubmit}>
           <input
@@ -227,6 +233,7 @@ export default function Header() {
           <label className="header__filter">
             Species
             <select
+              className="header__select"
               value={filters.species || ""}
               name="species"
               onChange={handleFiltersChange}
@@ -239,6 +246,7 @@ export default function Header() {
           <label className="header__filter">
             Breed
             <input
+              className="header__select"
               onChange={handleFiltersChange}
               value={filters.breed || ""}
               name="breed"
@@ -248,6 +256,7 @@ export default function Header() {
           <label className="header__filter">
             Sex
             <select
+              className="header__select"
               value={filters.sex || ""}
               name="sex"
               onChange={handleFiltersChange}
@@ -260,6 +269,7 @@ export default function Header() {
           <label className="header__filter">
             Age
             <select
+              className="header__select"
               value={filters.age || ""}
               name="age"
               onChange={handleFiltersChange}
@@ -274,6 +284,7 @@ export default function Header() {
           <label className="header__filter">
             Size
             <select
+              className="header__select"
               value={filters.size || ""}
               name="size"
               onChange={handleFiltersChange}

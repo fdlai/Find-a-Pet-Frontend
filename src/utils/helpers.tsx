@@ -3,7 +3,7 @@ export function isValidZipcode(str: string) {
 }
 
 export const colors = [
-  " antiquewhite",
+  "antiquewhite",
   "aliceblue",
   "rgb(255 199 180)",
   "beige",

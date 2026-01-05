@@ -1,0 +1,130 @@
+.about {
+  padding-top: var(--topPadding);
+  background: var(--bg);
+  padding-bottom: 80px;
+}
+
+.about__container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.about__header {
+  margin-bottom: 48px;
+}
+
+.about__title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.about__subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 640px;
+}
+
+.about__section {
+  margin-bottom: 48px;
+}
+
+.about__section--panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+}
+
+.about__section--footer {
+  border-top: 1px solid var(--accent-2);
+  padding-top: 32px;
+}
+
+.about__heading {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.about__text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 16px;
+  max-width: 760px;
+}
+
+.about__disclaimer {
+  font-size: 0.95rem;
+  color: var(--muted);
+  background: var(--bg-accent);
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  display: inline-block;
+}
+
+.about__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about__list li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 12px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.about__list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.about__list--compact li {
+  margin-bottom: 8px;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.about__card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.about__cardTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.about__links {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.about__link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.about__link:hover {
+  text-decoration: underline;
+}

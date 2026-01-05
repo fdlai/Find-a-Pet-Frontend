@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, SyntheticEvent } from "react";
 import "../blocks/PetInfo.css";
 import { useParams } from "react-router-dom";
 import { getPetInfo } from "../utils/api";
 import ImageModal from "./ImageModal";
 import useModal from "../hooks/useModal";
+import imageNotFound from "../assets/image-not-found.jpg";
 
 export default function PetInfo() {
   const { id } = useParams();
@@ -45,14 +46,37 @@ export default function PetInfo() {
           alt={`image of ${pet.species}`}
           className="pet-info__image"
           onClick={openModal}
+          onError={(e: SyntheticEvent<HTMLImageElement>) =>
+            ((e.target as HTMLImageElement).src = imageNotFound)
+          }
         />
-        <p className="pet-info__text">{`Species: ${pet.species}`}</p>
-        <p className="pet-info__text">{`Breed: ${pet.breed}`}</p>
-        <p className="pet-info__text">{`Sex: ${pet.sex}`}</p>
-        <p className="pet-info__text">{`Size: ${pet.size}`}</p>
-        <p className="pet-info__text">{`Characteristics: ${pet.characteristics}`}</p>
-        <p className="pet-info__text">{`Health: ${pet.health}`}</p>
-        <p className="pet-info__text">{`Description: ${pet.description}`}</p>
+        <div className="pet-info__text-container">
+          <p className="pet-info__text">
+            <span className="pet-info__highlight">Species:</span>{" "}
+            {`${pet.species}`}
+          </p>
+          <p className="pet-info__text">
+            <span className="pet-info__highlight">Breed:</span> {`${pet.breed}`}
+          </p>
+          <p className="pet-info__text">
+            <span className="pet-info__highlight">Sex:</span> {`${pet.sex}`}
+          </p>
+          <p className="pet-info__text">
+            <span className="pet-info__highlight">Size:</span> {`${pet.size}`}
+          </p>
+          <p className="pet-info__text">
+            <span className="pet-info__highlight">Characteristics:</span>{" "}
+            {`${pet.characteristics}`}
+          </p>
+          <p className="pet-info__text">
+            <span className="pet-info__highlight">Health:</span>{" "}
+            {`${pet.health}`}
+          </p>
+          <p className="pet-info__text">
+            <span className="pet-info__highlight">Description:</span>{" "}
+            {`${pet.description}`}
+          </p>
+        </div>
       </div>
       <ImageModal
         isOpen={isOpen}

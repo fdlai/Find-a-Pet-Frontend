@@ -1,0 +1,139 @@
+.contact {
+  background: var(--bg);
+  padding-top: var(--topPadding);
+  padding-bottom: 80px;
+}
+
+.contact__container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.contact__header {
+  margin-bottom: 40px;
+}
+
+.contact__title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.contact__subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 720px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.contact__disclaimer {
+  font-size: 0.95rem;
+  color: var(--muted);
+  background: var(--bg-accent);
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  display: inline-block;
+}
+
+.contact__section {
+  margin-bottom: 48px;
+}
+
+.contact__section--panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+}
+
+.contact__section--note {
+  background: var(--bg-accent);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.contact__heading {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.contact__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.contact__card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  color: inherit;
+}
+
+.contact__card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.contact__cardLabel {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.contact__cardValue {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.contact__cardHint {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.contact__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact__list li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 12px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.contact__list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.contact__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contact__chip {
+  background: var(--panel);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
+}

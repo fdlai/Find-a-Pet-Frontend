@@ -1,6 +1,6 @@
 import "../blocks/Main.css";
 import PetCard from "./PetCard";
-import { getRecentPets } from "../utils/api";
+import { getNewsArticles, getRecentPets } from "../utils/api";
 import { useEffect, useState } from "react";
 import SlickCarousel from "./SlickCarousel";
 import { colors } from "../utils/helpers";
@@ -38,37 +38,26 @@ export default function Main() {
   /* -------------------------------------------------------------------------- */
 
   useEffect(() => {
-    getRecentPets(4).then((petsArray) => {
+    getRecentPets(6).then((petsArray) => {
       console.log(petsArray);
       setPets(petsArray);
     });
   }, []);
 
   useEffect(() => {
-    fetch("https://newsapi.org/v2/everything?q=pets&pageSize=75", {
-      headers: {
-        "X-Api-Key": `${import.meta.env.VITE_NEWS_API_KEY}`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        Promise.reject(res.status);
-      })
-      .then((data) => {
-        console.log(data);
-        setNewsArticles(
-          data.articles.filter(
-            (article: NewsArticle) => article.title !== "[Removed]"
-          )
-        );
-      });
+    getNewsArticles().then((data) => {
+      console.log(data);
+      setNewsArticles(
+        data.articles.filter(
+          (article: NewsArticle) => article.title !== "[Removed]"
+        )
+      );
+    });
   }, []);
 
   return (
     <main className="main">
-      <h2>Recently added pets:</h2>
+      <h2 className="main__heading">Recently added pets</h2>
       <div className="main__recent-pets">
         {pets.map((pet: Pet, index) => {
           return (
@@ -76,11 +65,13 @@ export default function Main() {
               key={pet._id}
               pet={pet}
               color={colors[index % colors.length]}
+              imgAspectRatio={2}
+              infoContainerStyles={{ padding: "10px", alignItems: "start" }}
             />
           );
         })}
       </div>
-      <h2>Pet related news:</h2>
+      <h2 className="main__heading">Pet related news</h2>
       <SlickCarousel items={newsArticles} />
     </main>
   );

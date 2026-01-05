@@ -64,3 +64,12 @@ export function getPetInfo(id: string) {
     return Promise.reject(res.status);
   });
 }
+
+export function getNewsArticles() {
+  return fetch(`${baseUrl}/news`).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  });
+}

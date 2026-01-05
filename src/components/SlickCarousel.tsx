@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import "../blocks/SlickCarousel.css";
+import NewsCard from "./NewsCard";
 
 interface NewsArticle {
   title: string;
@@ -7,6 +8,14 @@ interface NewsArticle {
   urlToImage: string;
   id: undefined | string;
   hasTransition: boolean;
+  source: {
+    id: string;
+    name: string;
+  };
+  author: string;
+  description: string;
+  publishedAt: string;
+  content: string;
 }
 
 interface SlickCarouselProps {
@@ -19,16 +28,16 @@ export default function SlickCarousel({ items }: SlickCarouselProps) {
     infinite: true,
     speed: 400,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToScroll: 2,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -36,6 +45,7 @@ export default function SlickCarousel({ items }: SlickCarouselProps) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          dots: false,
         },
       },
     ],
@@ -44,28 +54,7 @@ export default function SlickCarousel({ items }: SlickCarouselProps) {
     <div className="slider-container">
       <Slider {...settings}>
         {items.map((item) => {
-          return (
-            <div key={item.url} className="news-article">
-              <div className="news-article__content">
-                <h3
-                  onMouseOver={(e: React.MouseEvent<HTMLHeadingElement>) => {
-                    (e.target as HTMLHeadingElement).title =
-                      (e.target as HTMLHeadingElement).textContent || "";
-                  }}
-                  className="news-article__title"
-                >
-                  {item?.title}
-                </h3>
-                <a href={item?.url} target="_blank">
-                  <img
-                    src={item?.urlToImage}
-                    alt={item?.title}
-                    className="news-article__image"
-                  />
-                </a>
-              </div>
-            </div>
-          );
+          return <NewsCard item={item} />;
         })}
       </Slider>
     </div>
