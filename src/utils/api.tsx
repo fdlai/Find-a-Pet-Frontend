@@ -1,6 +1,6 @@
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.petfinder.jumpingcrab.com"
+    ? "https://api-petfinder.fredlai.dev"
     : "http://localhost:3001";
 
 interface Coordinate {
@@ -23,7 +23,7 @@ export function getLocationByZipcode(query: string) {
   return fetch(
     `http://api.geonames.org/postalCodeSearchJSON?postalcode=${query}&maxRows=1&country=US&username=${
       import.meta.env.VITE_GEONAMES_USERNAME
-    }`
+    }`,
   ).then((res) => {
     if (res.ok) {
       return res.json();
@@ -38,7 +38,7 @@ export function getNearestPets({
   queryString,
 }: Coordinate) {
   return fetch(
-    `${baseUrl}/pets/near?${queryString}&lng=${longitude}&lat=${latitude}`
+    `${baseUrl}/pets/near?${queryString}&lng=${longitude}&lat=${latitude}`,
   ).then((res) => {
     if (res.ok) {
       return res.json();

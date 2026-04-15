@@ -3,7 +3,7 @@
 Find-a-Pet is a full-stack web application that helps users discover adoptable pets in their area.  
 Users can search by **city or ZIP code** (with autocomplete), browse detailed profiles, and view available pets by type.
 
-🔗 **Live Demo:** [https://petfinder.jumpingcrab.com/](https://petfinder.jumpingcrab.com/)
+🔗 **Live Demo:** [https://petfinder.fredlai.dev/](https://petfinder.fredlai.dev/)
 
 ---
 
